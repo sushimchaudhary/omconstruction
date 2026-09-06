@@ -1,0 +1,54 @@
+{
+  "name": "RestoSync",
+  "short_name": "RestoSync",
+  "description": "Streamline your restaurant operations with RestoSync. Complete solution for real-time POS, table management, order tracking, and sales analytics.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#06B6D4",
+  "background_color": "#ffffff",
+  "categories": ["food", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    
+    {
+      "src": "/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/desktop.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "RestoSync Desktop Dashboard"
+    },
+    {
+      "src": "/icons/mobile.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "label": "RestoSync Mobile Dashboard"
+    }
+  ]
+}

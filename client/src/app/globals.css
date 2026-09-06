@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  /* Updated to match your restaurant's primary dark text color */
+  --foreground: #1b2a2f; 
+  --accent: #f5a623;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  /* Nunito Sans थिम कन्फिगरेसन */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Hide default Google Translate banner frame */
+.goog-te-banner-frame,
+.skiptranslate,
+.goog-te-balloon-frame,
+#goog-gt-tt {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Body Base Styles */
+body {
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  top: 0px !important;
+}
+
+/* Utility Classes */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+  overflow: auto !important; /* Touch support preserve गर्न यो थप्नुहोस् */
+}
+
+.border-dotted-large {
+  border-top: 4px dotted #d1d5db; /* 4px thickness, dotted style, light-grey color */
+}
+
+.swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* ── CKEditor Rendered Content Styling ─────────────────────────────────────── */
+.ck-content {
+  line-height: 1.6;
+  color: #4b5563; /* Paragraph text color */
+}
+
+.ck-content p {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.ck-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Heading Styling */
+.ck-content h1,
+.ck-content h2,
+.ck-content h3,
+.ck-content h4,
+.ck-content h5,
+.ck-content h6 {
+  font-weight: 700;
+  color: #1b2a2f;
+  margin: 1rem 0 0.5rem;
+  line-height: 1.3;
+}
+
+.ck-content h1 { font-size: 1.5rem; }
+.ck-content h2 { font-size: 1.25rem; }
+.ck-content h3 { font-size: 1.125rem; }
+.ck-content h4 { font-size: 1rem; }
+
+/* Unordered & Ordered Lists Styling */
+.ck-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.ck-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.ck-content li {
+  display: list-item !important;
+  margin-bottom: 0.25rem;
+}
+
+/* Nested Lists Styling */
+.ck-content ul ul {
+  list-style-type: circle !important;
+  margin: 0.25rem 0 !important;
+}
+
+.ck-content ol ol {
+  list-style-type: lower-alpha !important;
+  margin: 0.25rem 0 !important;
+}
+
+.ck-content ul ol,
+.ck-content ol ul {
+  margin: 0.25rem 0 !important;
+}
+
+/* Text Formatting */
+.ck-content strong,
+.ck-content b {
+  font-weight: 700;
+  color: #1b2a2f;
+}
+
+.ck-content em,
+.ck-content i {
+  font-style: italic;
+}
+
+.ck-content u {
+  text-decoration: underline;
+}
+
+.ck-content s,
+.ck-content strike {
+  text-decoration: line-through;
+}
+
+/* Blockquote Styling */
+.ck-content blockquote {
+  border-left: 4px solid #f5a623;
+  padding-left: 1rem;
+  color: #6b7280;
+  font-style: italic;
+  margin: 0.75rem 0;
+  background-color: #f9fafb;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Links & Images */
+.ck-content a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.ck-content figure.image {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.ck-content figure.image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.border-dotted-large {
+  border-top: 4px dotted #d1d5db; /* 4px thickness, dotted style, light-grey color */
+}
+
+.swiper-slide {
+    height: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Hide default Google Translate banner frame */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+/* Hide Google Translate attribution tooltips */
+.goog-te-balloon-frame,
+#goog-gt-tt {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
