@@ -79,18 +79,18 @@ const SUPERADMIN_MENU_GROUPS: MenuGroup[] = [
       {
         icon: LayoutDashboard,
         labelKey: "Dashboard",
-        href: "/cms/admin-dashboard",
+        href: "/cms",
       },
     ],
   },
-  {
-    groupKey: "user_management",
-    label: "User Management",
-    items: [
-      { icon: Users, labelKey: "Users", href: "/cms/users" },
-      { icon: Briefcase, labelKey: "Team Members", href: "/cms/team-members" },
-    ],
-  },
+  // {
+  //   groupKey: "user_management",
+  //   label: "User Management",
+  //   items: [
+  //     { icon: Users, labelKey: "Users", href: "/cms/users" },
+  //     { icon: Briefcase, labelKey: "Team Members", href: "/cms/team-members" },
+  //   ],
+  // },
   {
     groupKey: "company_details",
     label: "Company Content",
@@ -105,7 +105,7 @@ const SUPERADMIN_MENU_GROUPS: MenuGroup[] = [
     groupKey: "operations",
     label: "Operations",
     items: [
-      { icon: CalendarCheck, labelKey: "Attendance Control", href: "/cms/attendances" },
+      // { icon: CalendarCheck, labelKey: "Attendance Control", href: "/cms/attendances" },
       { icon: MessageSquareText, labelKey: "Contact Messages", href: "/cms/contact-messages" },
     ],
   },

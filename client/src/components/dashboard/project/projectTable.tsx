@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Pencil, Trash2, ChevronLeft, ChevronRight, Inbox, SearchX, Download, LucideImage, MapPin, User } from "lucide-react";
+import { Pencil, Trash2, ChevronLeft, ChevronRight, Inbox, SearchX, Download, LucideImage, MapPin, User, Images } from "lucide-react";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -141,7 +141,7 @@ export default function ProjectTable({ onEdit, refreshTrigger, searchQuery = "" 
                   />
                 </th>
                 <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">S.N.</th>
-                <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">Image</th>
+                <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">Images</th>
                 <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">Title</th>
                 <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">Description</th>
                 <th className="px-3 py-2 text-[11px] font-bold text-[#8094ae] uppercase whitespace-nowrap">Location</th>
@@ -168,6 +168,9 @@ export default function ProjectTable({ onEdit, refreshTrigger, searchQuery = "" 
               ) : (
                 paginated.map((item, index) => {
                   const isSelected = selectedIds.includes(item.id);
+                  const galleryImages = Array.isArray(item.images) ? item.images : [];
+                  const mainImage = item.image || galleryImages[0];
+
                   return (
                     <tr key={item.id} className={`hover:bg-gray-50 transition-colors ${isSelected ? "bg-blue-50/40" : ""}`}>
                       <td className="px-3 py-2 text-center whitespace-nowrap">
@@ -181,34 +184,58 @@ export default function ProjectTable({ onEdit, refreshTrigger, searchQuery = "" 
                       <td className="px-3 py-2 text-[10px] text-[#526484] whitespace-nowrap">
                         {(currentPage - 1) * PAGE_SIZE + index + 1}.
                       </td>
+
+                      {/* Image Preview Cell with Gallery Collapse */}
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <div className="w-12 h-9 rounded border border-gray-100 overflow-hidden bg-gray-50 flex items-center justify-center">
-                          {item.image ? (
-                            <AntImage
-                              src={item.image}
-                              alt={item.title || "Image"}
-                              className="w-full h-full object-cover"
-                              wrapperStyle={{ width: "100%", height: "100%" }}
-                              placeholder={
-                                <div className="w-full h-full flex items-center justify-center bg-gray-100 animate-pulse" />
-                              }
-                            />
-                          ) : (
-                            <LucideImage size={14} className="text-gray-300" />
-                          )}
-                        </div>
+                        <AntImage.PreviewGroup>
+                          <div className="relative w-12 h-9 rounded border border-gray-200 bg-gray-50 overflow-hidden flex items-center justify-center group">
+                            {mainImage ? (
+                              <AntImage
+                                src={mainImage}
+                                alt={item.title || "Image"}
+                                className="w-full h-full object-cover"
+                                wrapperStyle={{ width: "100%", height: "100%" }}
+                                placeholder={
+                                  <div className="w-full h-full flex items-center justify-center bg-gray-100 animate-pulse" />
+                                }
+                              />
+                            ) : (
+                              <LucideImage size={14} className="text-gray-300" />
+                            )}
+
+                            {/* Gallery Badge Indicator */}
+                            {galleryImages.length > 0 && (
+                              <div className="absolute bottom-0.5 right-0.5 bg-black/70 text-white px-1 py-0.2 rounded text-[8px] font-bold flex items-center gap-0.5 backdrop-blur-sm pointer-events-none">
+                                <Images size={8} />
+                                <span>{galleryImages.length}</span>
+                              </div>
+                            )}
+
+                            {/* Hidden gallery images inside PreviewGroup so user can slide through all */}
+                            {galleryImages.map((imgUrl: string, idx: number) => {
+                              if (imgUrl === mainImage) return null;
+                              return (
+                                <AntImage
+                                  key={idx}
+                                  src={imgUrl}
+                                  wrapperStyle={{ display: "none" }}
+                                />
+                              );
+                            })}
+                          </div>
+                        </AntImage.PreviewGroup>
                       </td>
+
                       <td className="px-3 py-2 whitespace-nowrap max-w-[150px]">
                         <span className="text-[11px] font-bold text-[#364a63] block truncate">{item.title}</span>
                       </td>
-                      
-                      {/* Fixed Popover Cell */}
+
                       <td className="px-3 py-2 max-w-[240px]">
                         <Popover
                           trigger="hover"
                           mouseEnterDelay={0.2}
                           placement="top"
-                          overlayStyle={{ width: "650px" }} // Popover Width Fixed
+                          overlayStyle={{ width: "650px" }}
                           title={
                             <div className="text-xs font-bold text-[#364a63] border-b pb-1 truncate">
                               {item.title || "Description Details"}

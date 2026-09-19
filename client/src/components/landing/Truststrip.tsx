@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 export default function TrustStrip() {
   const reduceMotion = useReducedMotion();
 
-  // Short & Sweet Construction Points
   const items = [
     "🏗️ Complete Construction Services",
     "📜 Municipal Approval Guaranteed",
@@ -15,41 +15,82 @@ export default function TrustStrip() {
     "👷 Expert On-Site Engineers",
   ];
 
-  const loop = [...items, ...items];
+  const loop = [...items, ...items, ...items];
 
   return (
-    <div className="border-y border-slate-200/80 bg-slate-50/80 py-4 backdrop-blur overflow-hidden">
-      <p className="text-center text-[11px] font-bold uppercase tracking-widest text-[#1c3551] font-[var(--font-mono)] mb-2.5">
-        Why Choose Om Construction
-      </p>
-
-      <div className="relative mx-auto max-w-7xl px-5">
-        <motion.div
-          animate={reduceMotion ? undefined : { x: ["0%", "-50%"] }}
-          transition={
-            reduceMotion
-              ? undefined
-              : { duration: 45, repeat: Infinity, ease: "linear" } // Duration to 45s for smoother, slower scrolling
-          }
-          className="flex w-max items-center gap-10 text-xs sm:text-sm font-semibold text-slate-700"
+    <section className="relative w-full bg-transparent py-8 sm:py-12 overflow-hidden my-4">
+      {/* Top Wave Border Line Only */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+        <svg
+          className="relative block w-full h-6 sm:h-10 text-[#1c3551]/20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
         >
-          {loop.map((item, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap flex items-center gap-2 hover:text-[#f96400] transition-colors cursor-default"
-            >
-              {item}
-            </span>
-          ))}
-        </motion.div>
-
-        {!reduceMotion && (
-          <>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent" />
-          </>
-        )}
+          <path
+            d="M0,0 C150,90 350,-40 500,50 C650,140 900,10 1200,40"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeDasharray="6 6"
+          />
+        </svg>
       </div>
-    </div>
+
+      {/* Content Layer */}
+      <div className="relative z-20 py-2">
+        <div className="flex items-center justify-center gap-2 text-center text-xs font-black uppercase tracking-widest text-[#f96400] mb-5">
+          <Sparkles className="w-3.5 h-3.5 text-[#f96400]" />
+          <span>Why Choose Om Construction</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#f96400]" />
+        </div>
+
+        {/* Endless Transparent Ticker Banner */}
+        <div className="relative mx-auto max-w-full overflow-hidden">
+          <motion.div
+            animate={reduceMotion ? undefined : { x: ["0%", "-33.33%"] }}
+            transition={
+              reduceMotion
+                ? undefined
+                : { duration: 35, repeat: Infinity, ease: "linear" }
+            }
+            className="flex w-max items-center gap-6 text-xs sm:text-sm font-bold text-[#1c3551]"
+          >
+            {loop.map((item, i) => (
+              <span
+                key={i}
+                className="whitespace-nowrap flex items-center gap-2 bg-white/60 backdrop-blur-xs px-5 py-2.5 rounded-full border border-[#1c3551]/20 shadow-xs hover:border-[#f96400] hover:text-[#f96400] transition-all cursor-default"
+              >
+                {item}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Side Fading Gradient Effects for Transparent Feel */}
+          {!reduceMotion && (
+            <>
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-30" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-30" />
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom Wave Border Line Only */}
+      <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-10 rotate-180 pointer-events-none">
+        <svg
+          className="relative block w-full h-6 sm:h-10 text-[#1c3551]/20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 C150,90 350,-40 500,50 C650,140 900,10 1200,40"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeDasharray="6 6"
+          />
+        </svg>
+      </div>
+    </section>
   );
 }

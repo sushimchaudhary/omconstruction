@@ -97,29 +97,25 @@ export default function Nav({ onOpenDemo }: { onOpenDemo?: () => void }) {
             Services
           </a>
           <a
-            href="#projects"
-            onClick={(e) => handleScrollTo(e, "#projects")}
+            href="/projects"
             className="text-[#1c3551] hover:text-[#f96400] transition-colors whitespace-nowrap"
           >
             Projects
           </a>
           <a
-            href="#about"
-            onClick={(e) => handleScrollTo(e, "#about")}
+            href="/about"
             className="text-[#1c3551] hover:text-[#f96400] transition-colors whitespace-nowrap"
           >
             About Us
           </a>
           <a
-            href="#contact"
-            onClick={(e) => handleScrollTo(e, "#contact")}
+            href="/contact"
             className="text-[#1c3551] hover:text-[#f96400] transition-colors whitespace-nowrap"
           >
             Contact
           </a>
           <a
-            href="#how-to-download"
-            onClick={(e) => handleScrollTo(e, "#how-to-download")}
+            href="/get-started"
             className="text-[#1c3551] hover:text-[#f96400] transition-colors whitespace-nowrap"
           >
             Get Started
@@ -172,36 +168,31 @@ export default function Nav({ onOpenDemo }: { onOpenDemo?: () => void }) {
           >
             <div className="px-6 py-5 flex flex-col gap-4 font-medium text-sm">
               <a
-                href="#services"
-                onClick={(e) => handleScrollTo(e, "#services")}
+                href="/services"
                 className="text-[#1c3551] hover:text-[#f96400] transition-colors py-1"
               >
                 Services
               </a>
               <a
-                href="#projects"
-                onClick={(e) => handleScrollTo(e, "#projects")}
+                href="/projects"
                 className="text-[#1c3551] hover:text-[#f96400] transition-colors py-1"
               >
                 Projects
               </a>
               <a
-                href="#about"
-                onClick={(e) => handleScrollTo(e, "#about")}
+                href="/about"
                 className="text-[#1c3551] hover:text-[#f96400] transition-colors py-1"
               >
                 About Us
               </a>
               <a
-                href="#contact"
-                onClick={(e) => handleScrollTo(e, "#contact")}
+                href="/contact"
                 className="text-[#1c3551] hover:text-[#f96400] transition-colors py-1"
               >
                 Contact
               </a>
               <a
-                href="#how-to-download"
-                onClick={(e) => handleScrollTo(e, "#how-to-download")}
+                href="/get-started"
                 className="text-[#1c3551] hover:text-[#f96400] transition-colors py-1"
               >
                 Get Started

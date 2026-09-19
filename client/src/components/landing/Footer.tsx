@@ -106,25 +106,30 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Navigation Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Quick Links</h4>
-            <ul className="space-y-2 font-medium text-slate-600">
-              <li><a href="#services" className="hover:text-[#f96400] transition-colors">Services</a></li>
-              <li><a href="#projects" className="hover:text-[#f96400] transition-colors">Projects</a></li>
-              <li><a href="#about" className="hover:text-[#f96400] transition-colors">About Us</a></li>
-              <li><a href="#team" className="hover:text-[#f96400] transition-colors">Team</a></li>
-            </ul>
-          </div>
+          {/* Combined Wrapper for Quick Links & Support (Mobile Screen ma 2 Column, Desktop ma Separate) */}
+          <div className="grid grid-cols-2 gap-4 col-span-1 md:col-span-1 lg:col-span-2 md:grid-cols-2">
+            
+            {/* Col 2: Navigation Links */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Quick Links</h4>
+              <ul className="space-y-2 font-medium text-slate-600">
+                <li><a href="#services" className="hover:text-[#f96400] transition-colors">Services</a></li>
+                <li><a href="#projects" className="hover:text-[#f96400] transition-colors">Projects</a></li>
+                <li><a href="#about" className="hover:text-[#f96400] transition-colors">About Us</a></li>
+                <li><a href="#team" className="hover:text-[#f96400] transition-colors">Team</a></li>
+              </ul>
+            </div>
 
-          {/* Col 3: Legal & Support */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Support & Legal</h4>
-            <ul className="space-y-2 font-medium text-slate-600">
-              <li><Link href="/support-teams" className="hover:text-[#f96400] transition-colors">Support Center</Link></li>
-              <li><Link href="/privacy-policy" className="hover:text-[#f96400] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms-and-conditions" className="hover:text-[#f96400] transition-colors">Terms of Service</Link></li>
-            </ul>
+            {/* Col 3: Legal & Support */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Support & Legal</h4>
+              <ul className="space-y-2 font-medium text-slate-600">
+                <li><Link href="/support-teams" className="hover:text-[#f96400] transition-colors">Support Center</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-[#f96400] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms-and-conditions" className="hover:text-[#f96400] transition-colors">Terms of Service</Link></li>
+              </ul>
+            </div>
+
           </div>
 
           {/* Col 4: Dynamic Contact Info */}

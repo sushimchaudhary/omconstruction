@@ -14,17 +14,23 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axiosInstance from "@/lib/config/axios.config";
+import Image from "next/image";
+import { toast } from "sonner";
+
 import { ThemedInput } from "@/components/ui/ThemedInput";
 import { useTheme } from "@/lib/context/ThemeContext";
-import Image from "next/image";
+import { AuthServices } from "@/services/authServices"; // Ensure AuthServices path matches your app
 
 interface PageProps {
-  params: Promise<{ uidb64: string; token: string }>;
+  params: Promise<{ userId: string; token: string }>;
 }
 
 export default function ResetPassword({ params }: PageProps) {
-  const { uidb64, token } = use(params);
+  // Unwrap promise params correctly
+  const resolvedParams = use(params);
+  const userId = resolvedParams?.userId;
+  const token = resolvedParams?.token;
+
   const router = useRouter();
   const { primaryColor } = useTheme();
   const themeColor = primaryColor || "#06B6D4";
@@ -39,7 +45,7 @@ export default function ResetPassword({ params }: PageProps) {
     text: string;
   } | null>(null);
 
-  // Password strength logic
+  // Password strength calculation
   const getStrength = (pass: string) => {
     if (!pass) return 0;
     let score = 0;
@@ -59,16 +65,24 @@ export default function ResetPassword({ params }: PageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!userId || !token) {
+      const errorMsg = "Invalid or missing reset token parameters.";
+      setStatus({ type: "error", text: errorMsg });
+      toast.error(errorMsg);
+      return;
+    }
+
     if (password !== confirmPassword) {
-      setStatus({ type: "error", text: "Passwords do not match!" });
+      const errorMsg = "Passwords do not match!";
+      setStatus({ type: "error", text: errorMsg });
+      toast.error(errorMsg);
       return;
     }
 
     if (password.length < 8) {
-      setStatus({
-        type: "error",
-        text: "Password must be at least 8 characters.",
-      });
+      const errorMsg = "Password must be at least 8 characters.";
+      setStatus({ type: "error", text: errorMsg });
+      toast.error(errorMsg);
       return;
     }
 
@@ -76,22 +90,18 @@ export default function ResetPassword({ params }: PageProps) {
     setStatus(null);
 
     try {
-      await axiosInstance.post("/auth/reset-password/", {
-        uidb64,
-        token,
-        new_password: password,
-      });
+      await AuthServices.resetPassword(userId, token, password);
 
-      setStatus({
-        type: "success",
-        text: "Password updated successfully! Redirecting to login...",
-      });
+      const successMsg = "Password updated successfully! Redirecting to login...";
+      setStatus({ type: "success", text: successMsg });
+      toast.success(successMsg);
 
-      setTimeout(() => router.push("/login"), 1500);
+      setTimeout(() => router.push("/login"), 1800);
     } catch (err: any) {
       const errorMsg =
         err.response?.data?.detail || "Invalid token or expired link.";
       setStatus({ type: "error", text: errorMsg });
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -118,29 +128,28 @@ export default function ResetPassword({ params }: PageProps) {
 
         {/* Card Header */}
         <div className="px-8 pt-4 text-center">
-          <div className="inline-flex items-center justify-center ">
+          <div className="inline-flex items-center justify-center py-2">
             <Image
               src="/logo.png"
-              alt="RestoSync Logo"
-              width={400}
-              height={200}
+              alt="Logo"
+              width={220}
+              height={80}
               quality={100}
-              className="h-30 md:h-32 w-auto object-contain scale-170 md:scale-[2.2] "
+              className="h-16 w-auto object-contain"
               priority
             />
           </div>
 
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight uppercase">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight uppercase mt-1">
             Create New Password
           </h1>
-          <p className="text-xs font-medium text-slate-500 mt-1.5">
+          <p className="text-xs font-medium text-slate-500 mt-1">
             Your new password must be different from previous passwords.
           </p>
         </div>
 
         {/* Card Body */}
         <div className="px-8 pb-8 pt-2">
-          {/* Info banner */}
           <div className="flex items-start gap-2.5 rounded-xl px-3.5 py-3 mb-5 bg-cyan-50/70 border border-cyan-100/80 text-cyan-900">
             <ShieldCheck size={18} className="text-[#06B6D4] shrink-0 mt-0.5" />
             <p className="text-xs font-medium leading-relaxed text-slate-600">
@@ -227,7 +236,6 @@ export default function ResetPassword({ params }: PageProps) {
                   {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
 
-                {/* Match Status Icon */}
                 {confirmPassword && (
                   <div className="absolute right-10 top-1/2 -translate-y-1/2">
                     <CheckCircle2
@@ -263,7 +271,7 @@ export default function ResetPassword({ params }: PageProps) {
             <button
               type="submit"
               disabled={loading || status?.type === "success"}
-              className="w-full text-white py-2 px-4 rounded font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg shadow-[#06B6D4]/20 cursor-pointer mt-4"
+              className="w-full text-white py-2.5 px-4 rounded-lg font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg cursor-pointer mt-4"
               style={{ backgroundColor: themeColor }}
             >
               {loading ? (
@@ -281,7 +289,7 @@ export default function ResetPassword({ params }: PageProps) {
           </form>
 
           {/* Back to Login Footer */}
-          <div className="pt-4 text-center border-t border-slate-100">
+          <div className="pt-4 text-center border-t border-slate-100 mt-4">
             <Link
               href="/login"
               className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#06B6D4] transition-colors"
@@ -295,7 +303,7 @@ export default function ResetPassword({ params }: PageProps) {
         {/* Footer Security Badge */}
         <div className="bg-slate-50 border-t border-slate-100 py-3.5 px-8 text-center flex items-center justify-center gap-1.5 text-[11px] font-semibold text-slate-400">
           <ShieldCheck size={14} className="text-[#06B6D4]" />
-          <span>Secured RestoSync Authentication Service</span>
+          <span>Secured Authentication Service</span>
         </div>
       </div>
     </div>

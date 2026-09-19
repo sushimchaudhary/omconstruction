@@ -126,7 +126,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     ];
 
     if (superUserFlag && workerRoutes.includes(pathname)) {
-      router.push("/cms/admin-dashboard");
+      router.push("/cms");
     }
   }, [pathname, router]);
 

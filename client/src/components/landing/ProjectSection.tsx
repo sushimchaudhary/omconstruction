@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { ProjectsServices } from "@/services/projectsServices";
+import { ProjectsServices } from "@/services/projectsServices"; // Adjust path if needed
 
 export interface ProjectItem {
   id?: string;
@@ -13,8 +13,6 @@ export interface ProjectItem {
   image?: string;
   category?: string;
   status?: string;
-  client_name?: string;
-  location?: string;
 }
 
 // Helper function to generate URL slug from title
@@ -55,7 +53,7 @@ const fadeUp: Variants = {
   },
 };
 
-export default function ProjectsPage() {
+export default function ProjectsSection() {
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [status, setStatus] = useState<"loading" | "error" | "ready">("loading");
   const [errorMsg, setErrorMsg] = useState("");
@@ -82,12 +80,11 @@ export default function ProjectsPage() {
     loadProjects();
   }, []);
 
-  // Compute displayed projects dynamically based on state
   const INITIAL_COUNT = 6;
   const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
 
   return (
-    <section id="projects" className="projects-root w-full bg-slate-50/50 py-16 md:py-24 px-4 sm:px-6 lg:px-12">
+    <section  className="projects-root w-full bg-slate-50/50 py-2 px-4 ">
       <style>{`
         .projects-root {
           --navy: #173457;
@@ -107,31 +104,27 @@ export default function ProjectsPage() {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto space-y-12">
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto space-y-3"
-        >
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--orange)]">
-            Our Portfolio
-          </span>
-          <h2
-            className="text-3xl sm:text-4xl font-extrabold tracking-tight"
-            style={{ fontFamily: "var(--font-display)", color: "var(--navy)" }}
-          >
-            Explore Our Projects
-          </h2>
-          <div className="w-12 h-1 bg-[var(--orange)] rounded-full mx-auto" />
-        </motion.div>
+      <div className="max-w-7xl mx-auto space-y-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="pt-10 max-w-4xl mx-auto text-center space-y-4 border-t border-slate-200/60 mt-12"
+            >
+              <h3
+                className="text-xl sm:text-2xl font-bold"
+                style={{ fontFamily: "var(--font-display)", color: "var(--navy)" }}
+              >
+                Building Dreams into Engineering Reality
+              </h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                At Om Construction, every project represents our unwavering commitment to structural excellence, innovative architecture, and timely delivery. From residential spaces to large-scale commercial infrastructures, we combine cutting-edge technology with quality craftsmanship to build lasting foundations for the future.
+              </p>
+            </motion.div>
 
-        {/* Loading Skeleton State */}
         {status === "loading" && <ProjectsSkeleton />}
 
-        {/* Error State */}
         {status === "error" && (
           <div className="flex flex-col items-center justify-center p-8 bg-white border border-red-200 rounded-lg max-w-md mx-auto text-center shadow-sm">
             <p className="text-slate-700 font-medium mb-4">{errorMsg}</p>
@@ -145,7 +138,6 @@ export default function ProjectsPage() {
           </div>
         )}
 
-        {/* Ready State */}
         {status === "ready" && (
           <>
             <motion.div
@@ -168,7 +160,7 @@ export default function ProjectsPage() {
                 layout
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex justify-center pt-4"
+                className="flex justify-center pt-2"
               >
                 <button
                   type="button"
@@ -194,6 +186,8 @@ export default function ProjectsPage() {
                 </button>
               </motion.div>
             )}
+
+           
           </>
         )}
       </div>
@@ -247,9 +241,9 @@ function ProjectCard({ item }: { item: ProjectItem }) {
 
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent opacity-80" />
 
-            {item.status && (
+            {item.category && (
               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-[var(--navy)] border border-slate-100 shadow-md">
-                {item.status}
+                {item.category}
               </div>
             )}
           </div>
@@ -274,7 +268,7 @@ function ProjectCard({ item }: { item: ProjectItem }) {
         </div>
 
         <div className="mt-4 px-2 pb-2 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[var(--navy)] group-hover:text-[var(--orange)] transition-colors">
-          <span>View Details</span>
+          <span>View Project</span>
           <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>

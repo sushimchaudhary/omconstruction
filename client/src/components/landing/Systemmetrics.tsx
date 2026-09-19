@@ -2,49 +2,108 @@
 
 import { useEffect, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
+import { ProjectsServices } from "@/services/projectsServices"; // Route path update garnus
 
-export default function SystemMetrics({ stats }: { stats: { restaurants: number; branches: number } }) {
-  const restaurantCount = stats?.restaurants ?? 0;
-  const branchCount = stats?.branches ?? 0;
+interface MetricsState {
+  total: number;
+  completed: number;
+  ongoing: number;
+}
+
+export default function SystemMetrics() {
+  const [counts, setCounts] = useState<MetricsState>({
+    total: 0,
+    completed: 0,
+    ongoing: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProjectStats() {
+      try {
+        const res = await ProjectsServices.getDetails();
+        const data = Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : [];
+
+        const total = data.length;
+        const completed = data.filter(
+          (p: any) =>
+            p.status?.toLowerCase() === "completed" ||
+            p.status?.toLowerCase() === "complete"
+        ).length;
+        const ongoing = data.filter(
+          (p: any) =>
+            p.status?.toLowerCase() === "ongoing" ||
+            p.status?.toLowerCase() === "in_progress" ||
+            p.status?.toLowerCase() === "active"
+        ).length;
+
+        setCounts({ total, completed, ongoing });
+      } catch (error) {
+        console.error("Failed to fetch project stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjectStats();
+  }, []);
 
   const metrics = [
-    { value: restaurantCount, decimals: 0, suffix: "+", label: "Restaurants using RestoCloud", color: "text-[#32BCC5]" },
-    { value: branchCount, decimals: 0, suffix: "+", label: "Branches running live", color: "text-[#32BCC5]" },
-    { value: 99.9, decimals: 1, suffix: "%", label: "Uptime (always working)", color: "text-[#32BCC5]" },
+    {
+      value: counts.total,
+      suffix: "+",
+      label: "Total Projects Delivered",
+      accentColor: "text-[#f96400]",
+    },
+    {
+      value: counts.completed,
+      suffix: "+",
+      label: "Successfully Completed",
+      accentColor: "text-[#f96400]",
+    },
+    {
+      value: counts.ongoing,
+      suffix: "",
+      label: "Active Construction Sites",
+      accentColor: "text-[#f96400]",
+    },
   ];
 
   return (
-    <section className="relative overflow-hidden py-20 bg-slate-900 text-white">
-      {/* Direct Unsplash Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+    <section className="relative overflow-hidden py-20 sm:py-28 bg-[#1c3551]/20 text-white">
+      {/* Local Image Background /systemmatrix.png */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop')`
+          backgroundImage: `url('/systemmatrix.png')`,
         }}
       />
 
-      {/* Modern Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 via-slate-900/40 to-slate-950/30"></div>
+      {/* Dark Overlay gradient for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1c3551]/60 via-[#1c3551]/65 to-[#1c3551]/70" />
 
-      {/* Floating Star & Bubble Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Shiny Stars / Cross Glows */}
-        <div className="absolute top-8 left-[15%] text-[#32BCC5] opacity-40 animate-pulse text-xl">✦</div>
-        <div className="absolute bottom-10 left-[45%] text-[#0e7491] opacity-50 animate-bounce text-sm">★</div>
-        <div className="absolute top-12 right-[20%] text-[#32BCC5] opacity-40 animate-pulse text-lg">✦</div>
-        
-        {/* Glowing Bubbles */}
-        <div className="absolute top-1/4 left-10 w-24 h-24 rounded-full bg-[#32BCC5]/15 blur-xl"></div>
-        <div className="absolute bottom-1/3 right-12 w-32 h-32 rounded-full bg-[#0e7491]/20 blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[#32BCC5]/10 blur-3xl"></div>
-      </div>
-
-      {/* Banner Content (Without Card Box) */}
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-800/60">
+      {/* Clean Text-only Metrics Row */}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/20">
           {metrics.map((m, idx) => (
-            <div key={m.label} className={idx !== 0 ? "pt-8 sm:pt-0 sm:pl-8" : ""}>
-              <CountUpMetric {...m} />
+            <div
+              key={m.label}
+              className={`flex flex-col items-center justify-center ${
+                idx !== 0 ? "pt-8 sm:pt-0 sm:pl-8" : ""
+              }`}
+            >
+              {/* Animated Big Typography Numbers */}
+              <CountUpMetric
+                value={m.value}
+                suffix={m.suffix}
+                accentColor={m.accentColor}
+                isLoading={loading}
+              />
+
+              {/* Minimal Text Label */}
+              <p className="mt-2 text-sm sm:text-base font-extrabold uppercase tracking-wider text-slate-200 drop-shadow-sm">
+                {m.label}
+              </p>
             </div>
           ))}
         </div>
@@ -55,46 +114,52 @@ export default function SystemMetrics({ stats }: { stats: { restaurants: number;
 
 function CountUpMetric({
   value,
-  decimals,
   suffix,
-  label,
-  color,
+  accentColor,
+  isLoading,
 }: {
   value: number;
-  decimals: number;
   suffix: string;
-  label: string;
-  color: string;
+  accentColor: string;
+  isLoading: boolean;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(reduceMotion ? value : 0);
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
-    
+    if (!inView || isLoading) return;
+
     if (reduceMotion || value === 0) {
       setDisplay(value);
       return;
     }
 
     const controls = animate(0, value, {
-      duration: 1.5,
+      duration: 1.8,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setDisplay(v),
     });
 
     return () => controls.stop();
-  }, [inView, value, reduceMotion]);
+  }, [inView, value, reduceMotion, isLoading]);
 
   return (
-    <div className="group">
-      <p ref={ref} className={`font-[var(--font-mono)] text-5xl sm:text-6xl font-black ${color} tracking-tight drop-shadow-md`}>
-        {decimals > 0 ? display.toFixed(decimals) : Math.round(display)}
-        <span className="text-4xl sm:text-5xl font-extrabold text-white/80 ml-1">{suffix}</span>
-      </p>
-      <p className="mt-3 text-xs sm:text-sm font-bold uppercase tracking-widest text-slate-300/90">{label}</p>
-    </div>
+    <p
+      ref={ref}
+      className={`font-mono text-6xl sm:text-7xl font-black ${accentColor} tracking-tight drop-shadow-md`}
+    >
+      {isLoading ? (
+        <span className="animate-pulse text-white/40">--</span>
+      ) : (
+        <>
+          {Math.round(display)}
+          <span className="text-5xl sm:text-6xl font-bold text-white/90 ml-1">
+            {suffix}
+          </span>
+        </>
+      )}
+    </p>
   );
 }

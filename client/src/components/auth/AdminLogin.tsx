@@ -89,11 +89,16 @@ const AdminLoginPage = () => {
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
     const token = getCookie("adminToken");
+    const role = getCookie("role");
 
     if (token) {
-      router.replace("/cms");
+      if (role === "super_admin") {
+        router.replace("/cms");
+      } else {
+        router.replace("/cms/profile");
+      }
       return;
     }
 
@@ -147,10 +152,11 @@ const AdminLoginPage = () => {
 
       toast.success(`Welcome back, ${userDisplayName}!`);
 
-      if (isSuperUser) {
-        router.push("/cms/admin-dashboard");
-      } else {
+      // Role अनुसार Redirect Logic
+      if (userRole === "super_admin") {
         router.push("/cms");
+      } else {
+        router.push("/cms/profile");
       }
     } catch (err: any) {
       const errorMsg =

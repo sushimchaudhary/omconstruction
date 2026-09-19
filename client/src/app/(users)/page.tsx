@@ -1,18 +1,13 @@
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import { publicAxios } from "@/lib/config/axios.config";
 import { PublicPlan } from "@/types/authType";
-import ScrollProgress from "@/components/landing/Scrollprogress";
-import BackgroundGlow from "@/components/landing/Backgroundglow";
+
 import Hero from "@/components/landing/Hero";
 import SectionDivider from "@/components/landing/Sectiondivider";
 import TrustStrip from "@/components/landing/Truststrip";
-import HowItWorks from "@/components/landing/Howtoworks";
 import Features from "@/components/landing/Features";
 import DownloadApp from "@/components/landing/Download";
 import SystemMetrics from "@/components/landing/Systemmetrics";
@@ -22,6 +17,8 @@ import CTASection from "@/components/landing/Ctasection";
 import ScrollToTop from "@/components/ScrollTop";
 import AboutSection from "@/components/landing/about";
 import ServicesSection from "@/components/landing/services";
+import ProjectsSection from "@/components/landing/ProjectSection";
+import ContactSection from "@/components/landing/ContactSection";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -47,9 +44,8 @@ export default function LandingPage() {
   const [stats, setStats] = useState({ restaurants: 0, branches: 0 });
   const [plans, setPlans] = useState<PublicPlan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
-  // ── PWA INSTALL LOGIC (mirrors the admin login page) ──
+  // ── PWA INSTALL LOGIC ──
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstallable, setIsInstallable] = useState(false);
 
@@ -89,7 +85,6 @@ export default function LandingPage() {
       }
       setDeferredPrompt(null);
     } else if (typeof window !== "undefined") {
-      // Fallback for browsers that don't fire beforeinstallprompt (e.g. iOS Safari).
       window.alert("To install the app, tap 'Add to Home Screen' in your browser menu.");
     }
   };
@@ -118,43 +113,57 @@ export default function LandingPage() {
     fetchPublicData();
   }, []);
 
-return (
-  <div
-    className={`${fraunces.variable} ${inter.variable} ${mono.variable} font-[var(--font-inter)] bg-[color:var(--rc-bg)] text-[color:var(--rc-text)] antialiased min-h-screen w-full selection:bg-[#32BCC5] selection:text-white`}
-    style={
-      {
-        "--rc-bg": "#F5FBFC",
-        "--rc-surface": "#FFFFFF",
-        "--rc-border": "#E4F2F3",
-        "--rc-teal": "#32BCC5",
-        "--rc-teal-2": "#127986",
-        "--rc-text": "#0B2027",
-        "--rc-text-muted": "#4B6367",
-      } as React.CSSProperties
-    }
-  >
+  return (
+    <div
+      className={`${fraunces.variable} ${inter.variable} ${mono.variable} font-[var(--font-inter)] bg-[color:var(--rc-bg)] text-[color:var(--rc-text)] antialiased min-h-screen w-full selection:bg-[#f96400] selection:text-white`}
+      style={
+        {
+          "--rc-bg": "#FFFFFF",
+          "--rc-surface": "#FFFFFF",
+          "--rc-border": "#E2E8F0",
+          "--rc-[#1c3551]": "#1c3551",
+          "--rc-orange": "#f96400",
+          "--rc-text": "#0F172A",
+          "--rc-text-muted": "#475569",
+        } as React.CSSProperties
+      }
+    >
+      <div className="w-full overflow-x-hidden">
+        <main>
+          {/* 1. Hero Section - Primary Banner */}
+          <Hero />
 
-   
+          {/* 2. Client Trust / Partners Logos */}
+          <TrustStrip />
 
-    {/* 2. Main ra Footer lai wrapper ma rakhera horizontal overflow blck garne */}
-    <div className="w-full overflow-x-hidden">
-      <main>
-        <Hero  />
-        <SectionDivider />
-        <TrustStrip />
-        <AboutSection/>
-        <ServicesSection/>
-         <HowItWorks />
-        <Features />
-        <DownloadApp isInstallable={isInstallable} onInstallClick={handleInstallClick} />
-        <SystemMetrics stats={stats} />
-        <PricingSection plans={plans} loading={loading} onOpenDemo={() => setIsDemoOpen(true)} />
-        <CTASection onOpenDemo={() => setIsDemoOpen(true)} />
-      </main>
+          {/* 3. Company Introduction & Vision */}
+          <AboutSection />
+
+          <SectionDivider />
+
+          {/* 4. Core Offerings & Engineering Services */}
+          <ServicesSection />
+
+          {/* 5. Key Construction Capabilities / Highlights */}
+          <Features />
+
+          {/* 6. Live Metrics & Delivery Statistics */}
+          <SystemMetrics />
+
+          {/* 7. Portfolio Showcase (Completed & Ongoing) */}
+          <ProjectsSection />
+
+          <SectionDivider />
+
+          {/* 8. Call to Action / App Download */}
+          <DownloadApp isInstallable={isInstallable} onInstallClick={handleInstallClick} />
+
+           <ContactSection/>
+           
+        </main>
+      </div>
+
+      <ScrollToTop />
     </div>
-
-   
-    <ScrollToTop />
-  </div>
-);
+  );
 }

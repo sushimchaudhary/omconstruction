@@ -14,8 +14,8 @@ export interface AdminLoginResponse {
     super_user: boolean;
     is_staff?: boolean;
     is_admin?: boolean;
-    restaurant: string; // "" / undefined for super_user accounts
-    branch: string; // "" / undefined for super_user accounts
+    restaurant: string;
+    branch: string;
   };
 }
 
@@ -29,13 +29,14 @@ export const AuthServices = {
   },
 
   forgotPassword: async (email: string) => {
-    const res = await axiosInstance.post("/auth/forgot-password/", { email });
+    const res = await axiosInstance.post("/auth/forgot-password", { email });
     return res.data;
   },
 
-  resetPassword: async (uidb64: string, token: string, new_password: string) => {
-    const res = await axiosInstance.post("/auth/reset-password/", {
-      uidb64,
+  // Fixed payload key: uidb64 -> userId
+  resetPassword: async (userId: string, token: string, new_password: string) => {
+    const res = await axiosInstance.post("/auth/reset-password", {
+      userId,
       token,
       new_password,
     });

@@ -1,13 +1,11 @@
-
-
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PUBLIC_ROUTES = ['/', '/login', '/register-restaurant', '/forgot-password', '/reset-password'];
+const PUBLIC_ROUTES = ['/', '/login',  '/forgot-password', '/reset-password'];
 
 export function middleware(request: NextRequest) {
   const adminToken = request.cookies.get('adminToken')?.value;
-  const role = request.cookies.get('role')?.value; // 'staff' | 'admin' | 'super_admin'
+  const role = request.cookies.get('role')?.value; // 'worker' | 'super_admin'
 
   const { pathname } = request.nextUrl;
 
@@ -26,11 +24,10 @@ export function middleware(request: NextRequest) {
   // पहिल्यै लगइन भइसकेको प्रयोगकर्ताले पब्लिक रुट (जस्तै /login) खोल्न खोजेमा
   if (isPublicRoute) {
     if (role === 'super_admin') {
-      return NextResponse.redirect(new URL('/cms/restaurant', request.url));
-    } else if (role === 'admin') {
-      return NextResponse.redirect(new URL('/cms/admin-dashboard', request.url));
+      return NextResponse.redirect(new URL('/cms', request.url));
     } else {
-      return NextResponse.redirect(new URL('/cms', request.url)); // staff
+      // worker role को लागि profile मा Redirect
+      return NextResponse.redirect(new URL('/cms/profile', request.url));
     }
   }
 
