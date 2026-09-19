@@ -37,14 +37,14 @@ export default function Footer() {
   const address = orgData?.address || "";
 
   return (
-    <footer className="border-t border-slate-200 bg-white pt-12 pb-8 text-xs text-slate-500">
+    <footer className="border-t border-slate-200 bg-white pt-12 pb-8 text-[13px] text-slate-500">
       <div className="mx-auto max-w-7xl px-5 md:px-10 flex flex-col gap-8">
         
         {/* Main Grid Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-slate-100">
           
           {/* Col 1: Brand Info & Socials */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <Link href="/" className="inline-block">
               <Image
                 src={logoUrl}
@@ -56,9 +56,9 @@ export default function Footer() {
                 unoptimized={logoUrl.startsWith("http")}
               />
             </Link>
-            <p className="text-[#1c3551] font-bold text-sm">{companyName}</p>
+            <p className="text-slate-900 font-bold text-[18px]">{companyName}</p>
             {orgData?.tagline && (
-              <p className="text-slate-400 italic text-[11px]">{orgData.tagline}</p>
+              <p className="text-slate-700 italic text-[11px]">{orgData.tagline}</p>
             )}
 
             {/* Social Links */}
@@ -68,7 +68,7 @@ export default function Footer() {
                   href={orgData.facebook_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[#1c3551] hover:text-[#f96400] transition-colors"
+                  className="text-slate-900 hover:text-[#f96400] transition-colors"
                 >
                   <FaFacebook size={16} />
                 </a>
@@ -78,7 +78,7 @@ export default function Footer() {
                   href={orgData.instagram_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[#1c3551] hover:text-[#f96400] transition-colors"
+                  className="text-slate-900 hover:text-[#f96400] transition-colors"
                 >
                   <FaInstagram size={16} />
                 </a>
@@ -88,7 +88,7 @@ export default function Footer() {
                   href={orgData.twitter_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[#1c3551] hover:text-[#f96400] transition-colors"
+                  className="text-slate-900 hover:text-[#f96400] transition-colors"
                 >
                   <FaTwitter size={16} />
                 </a>
@@ -98,7 +98,7 @@ export default function Footer() {
                   href={orgData.linkedin_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[#1c3551] hover:text-[#f96400] transition-colors"
+                  className="text-slate-900 hover:text-[#f96400] transition-colors"
                 >
                   <FaLinkedin size={16} />
                 </a>
@@ -111,22 +111,22 @@ export default function Footer() {
             
             {/* Col 2: Navigation Links */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Quick Links</h4>
-              <ul className="space-y-2 font-medium text-slate-600">
-                <li><a href="#services" className="hover:text-[#f96400] transition-colors">Services</a></li>
-                <li><a href="#projects" className="hover:text-[#f96400] transition-colors">Projects</a></li>
-                <li><a href="#about" className="hover:text-[#f96400] transition-colors">About Us</a></li>
-                <li><a href="#team" className="hover:text-[#f96400] transition-colors">Team</a></li>
+              <h4 className="text-[13px] font-bold uppercase tracking-wider text-slate-900">Quick Links</h4>
+              <ul className="space-y-2 font-medium text-slate-800">
+                <li><a href="/services" className="hover:text-[#f96400] transition-colors">Services</a></li>
+                <li><a href="/projects" className="hover:text-[#f96400] transition-colors">Projects</a></li>
+                <li><a href="/about" className="hover:text-[#f96400] transition-colors">About Us</a></li>
+                {/* <li><a href="#team" className="hover:text-[#f96400] transition-colors">Team</a></li> */}
               </ul>
             </div>
 
             {/* Col 3: Legal & Support */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Support & Legal</h4>
-              <ul className="space-y-2 font-medium text-slate-600">
+              <h4 className="text-[13px] font-bold uppercase tracking-wider text-slate-900">Support & Legal</h4>
+              <ul className="space-y-2 font-medium text-slate-800">
                 <li><Link href="/support-teams" className="hover:text-[#f96400] transition-colors">Support Center</Link></li>
-                <li><Link href="/privacy-policy" className="hover:text-[#f96400] transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms-and-conditions" className="hover:text-[#f96400] transition-colors">Terms of Service</Link></li>
+                {/* <li><Link href="/privacy-policy" className="hover:text-[#f96400] transition-colors">Privacy Policy</Link></li> */}
+                <li><Link href="/terms&conditions" className="hover:text-[#f96400] transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
 
@@ -134,8 +134,8 @@ export default function Footer() {
 
           {/* Col 4: Dynamic Contact Info */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#1c3551]">Contact Us</h4>
-            <div className="space-y-2.5 font-medium text-slate-600">
+            <h4 className="text-[13px] font-bold uppercase tracking-wider text-slate-900">Contact Us</h4>
+            <div className="space-y-2.5 font-medium text-slate-800">
               {/* Address */}
               {address && (
                 <div className="flex items-start gap-2">
@@ -222,7 +222,7 @@ export default function Footer() {
               href="https://sushimchaudhary.com.np"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-[#1c3551] hover:text-[#f96400] transition-colors underline underline-offset-2"
+              className="font-semibold text-slate-900 hover:text-[#f96400] transition-colors underline underline-offset-2"
             >
               sushim dev
             </a>

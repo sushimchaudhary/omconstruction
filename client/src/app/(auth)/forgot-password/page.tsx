@@ -20,7 +20,7 @@ import Image from "next/image";
 
 export default function ForgotPasswordPage() {
   const { primaryColor } = useTheme();
-  const themeColor = primaryColor || "#06B6D4";
+  const themeColor =  "#153052";
 
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans flex items-center justify-center p-4 relative overflow-hidden selection:bg-[#06B6D4] selection:text-white">
+    <div className="min-h-screen bg-slate-50 font-sans flex items-center justify-center p-4 relative overflow-hidden selection:bg-[#153052] selection:text-white">
       {/* Background Decorative Ambient Glows */}
       <div
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[140px] opacity-15 pointer-events-none"
@@ -62,24 +62,24 @@ export default function ForgotPasswordPage() {
         <div
           className="h-1.5 w-full"
           style={{
-            background: `linear-gradient(90deg, ${themeColor} 0%, #0891B2 100%)`,
+            background: `linear-gradient(90deg, ${themeColor} 0%, #FD6102 100%)`,
           }}
         />
 
         {/* Card Header */}
         <div className="px-8 pt-1 text-center">
           {/* Logo Container */}
-          <div className="inline-flex items-center justify-center ">
-            <Image
-              src="/logo.png"
-              alt="RestoSync Logo"
-              width={100}
-              height={100}
-              quality={100}
-              className="h-20 md:h-22 w-auto object-contain scale-170 md:scale-[2.2] "
-              priority
-            />
-          </div>
+       <div className="inline-flex items-center justify-center pt-2">
+                   <Image
+                     src="/logo.png"
+                     alt="Construction Portal Logo"
+                     width={200}
+                     height={100}
+                     quality={100}
+                     className="h-12 md:h-18 w-auto object-contain scale-150"
+                     priority
+                   />
+                 </div>
 
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
             Forgot Password?
@@ -112,7 +112,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full text-white py-2 px-4 rounded-lg font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg shadow-[#06B6D4]/20 cursor-pointer mt-2"
+                className="w-full text-white py-2 px-4 rounded-lg font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg shadow-[#153052]/20 cursor-pointer mt-2"
                 style={{ backgroundColor: themeColor }}
               >
                 {loading ? (
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
               <div className="text-center pt-2">
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#06B6D4] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#153052] transition-colors"
                 >
                   <ArrowLeft size={14} />
                   <span>Back to Login</span>
@@ -161,7 +161,7 @@ export default function ForgotPasswordPage() {
                   <button
                     type="button"
                     onClick={() => setSent(false)}
-                    className="font-bold text-[#06B6D4] hover:underline cursor-pointer"
+                    className="font-bold text-[#153052] hover:underline cursor-pointer"
                   >
                     Click to resend
                   </button>
@@ -183,8 +183,8 @@ export default function ForgotPasswordPage() {
 
         {/* Footer Security Badge */}
         <div className="bg-slate-50 border-t border-slate-100 py-3.5 px-8 text-center flex items-center justify-center gap-1.5 text-[11px] font-semibold text-slate-400">
-          <ShieldCheck size={14} className="text-[#06B6D4]" />
-          <span>Secured RestoSync Authentication Service</span>
+          <ShieldCheck size={14} className="text-[#153052]" />
+          <span>Secured Om Construction Authentication Service</span>
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ export default function ResetPassword({ params }: PageProps) {
 
   const router = useRouter();
   const { primaryColor } = useTheme();
-  const themeColor = primaryColor || "#06B6D4";
+  const themeColor = "#153052";
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -108,7 +108,7 @@ export default function ResetPassword({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans flex items-center justify-center p-4 relative overflow-hidden selection:bg-[#06B6D4] selection:text-white">
+    <div className="min-h-screen bg-slate-50 font-sans flex items-center justify-center p-4 relative overflow-hidden selection:bg-[#153052] selection:text-white">
       {/* Background Decorative Ambient Glows */}
       <div
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[140px] opacity-15 pointer-events-none"
@@ -122,20 +122,20 @@ export default function ResetPassword({ params }: PageProps) {
         <div
           className="h-1.5 w-full"
           style={{
-            background: `linear-gradient(90deg, ${themeColor} 0%, #0891B2 100%)`,
+            background: `linear-gradient(90deg, ${themeColor} 0%, #FD6102 100%)`,
           }}
         />
 
         {/* Card Header */}
         <div className="px-8 pt-4 text-center">
-          <div className="inline-flex items-center justify-center py-2">
+        <div className="inline-flex items-center justify-center pt-2">
             <Image
               src="/logo.png"
-              alt="Logo"
-              width={220}
-              height={80}
+              alt="Construction Portal Logo"
+              width={200}
+              height={100}
               quality={100}
-              className="h-16 w-auto object-contain"
+              className="h-12 md:h-16 w-auto object-contain scale-150"
               priority
             />
           </div>
@@ -151,7 +151,7 @@ export default function ResetPassword({ params }: PageProps) {
         {/* Card Body */}
         <div className="px-8 pb-8 pt-2">
           <div className="flex items-start gap-2.5 rounded-xl px-3.5 py-3 mb-5 bg-cyan-50/70 border border-cyan-100/80 text-cyan-900">
-            <ShieldCheck size={18} className="text-[#06B6D4] shrink-0 mt-0.5" />
+            <ShieldCheck size={18} className="text-[#153052] shrink-0 mt-0.5" />
             <p className="text-xs font-medium leading-relaxed text-slate-600">
               Choose a strong password (8+ characters) with uppercase letters,
               numbers, and symbols to secure your account.
@@ -292,7 +292,7 @@ export default function ResetPassword({ params }: PageProps) {
           <div className="pt-4 text-center border-t border-slate-100 mt-4">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#06B6D4] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-[#153052] transition-colors"
             >
               <ArrowLeft size={14} />
               <span>Cancel & Return to Login</span>
@@ -302,8 +302,8 @@ export default function ResetPassword({ params }: PageProps) {
 
         {/* Footer Security Badge */}
         <div className="bg-slate-50 border-t border-slate-100 py-3.5 px-8 text-center flex items-center justify-center gap-1.5 text-[11px] font-semibold text-slate-400">
-          <ShieldCheck size={14} className="text-[#06B6D4]" />
-          <span>Secured Authentication Service</span>
+          <ShieldCheck size={14} className="text-[#153052]" />
+          <span>Secured Om Construction Authentication Service</span>
         </div>
       </div>
     </div>

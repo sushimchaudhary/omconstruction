@@ -1,8 +1,8 @@
-
+"use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Smartphone, X, HelpCircle, Check } from "lucide-react";
+import { Download, Smartphone, X, HelpCircle, Check, HardHat } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /* Platform icons — served from /public as static images              */
@@ -10,7 +10,7 @@ import { Download, Smartphone, X, HelpCircle, Check } from "lucide-react";
 
 type PlatformId = "android" | "ios" | "desktop";
 
-const PLATFORestoSync: {
+const PLATFORMS: {
   id: PlatformId;
   label: string;
   iconSrc: string;
@@ -21,7 +21,7 @@ const PLATFORestoSync: {
     label: "Android",
     iconSrc: "/android.png",
     steps: [
-      "Open RestoSync in Chrome browser.",
+      "Open Om Construction site in Chrome browser.",
       'Tap "Install" on the pop-up banner, or open the menu (⋮) at top right.',
       'Select "Add to Home screen" or "Install app" to complete setup.',
     ],
@@ -31,7 +31,7 @@ const PLATFORestoSync: {
     label: "iPhone / iPad",
     iconSrc: "/iphone.png",
     steps: [
-      "Open RestoSync in Safari browser.",
+      "Open Om Construction site in Safari browser.",
       "Tap the Share button at the bottom of the screen.",
       'Scroll down and choose "Add to Home Screen", then tap "Add".',
     ],
@@ -41,9 +41,9 @@ const PLATFORestoSync: {
     label: "Desktop",
     iconSrc: "/chrome.png",
     steps: [
-      "Open RestoSync in Chrome or Microsoft Edge.",
+      "Open Om Construction portal in Chrome or Microsoft Edge.",
       "Click the Install icon located on the right side of the address bar.",
-      'Or open browser settings and click "Install RestoSync".',
+      'Or open browser settings and click "Install Om Construction".',
     ],
   },
 ];
@@ -67,7 +67,7 @@ export default function DownloadApp({
 
   if (!isInstallable) return null;
 
-  const active = PLATFORestoSync.find((p) => p.id === activeTab)!;
+  const active = PLATFORMS.find((p) => p.id === activeTab)!;
 
   return (
     <>
@@ -77,41 +77,41 @@ export default function DownloadApp({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-lg border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6"
         >
           {/* ambient accents */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#127986]/10 blur-3xl"
+            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#153052]/10 blur-3xl"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-10 -bottom-16 h-40 w-40 rounded-full bg-[#32bcc5]/10 blur-3xl"
+            className="pointer-events-none absolute -left-10 -bottom-16 h-40 w-40 rounded-full bg-[#FD6102]/10 blur-3xl"
           />
 
           <div className="relative z-10 flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
             <motion.span
               whileHover={{ scale: 1.08, rotate: -4 }}
-              className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#127986]/10 to-[#32bcc5]/10 text-[#127986] border border-[#32bcc5]/30"
+              className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#153052]/10 to-[#FD6102]/10 text-[#153052] border border-[#FD6102]/20"
             >
-              <Smartphone className="h-7 w-7" />
+              <Smartphone className="h-7 w-7 text-[#153052]" />
             </motion.span>
             <div>
-              <span className="font-[var(--font-mono)] text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                Quick Setup
+              <span className="font-[var(--font-mono)] text-[10px] font-bold uppercase tracking-wider text-[#FD6102] flex items-center justify-center sm:justify-start gap-1">
+                <HardHat className="h-3 w-3" /> Quick Site Portal Access
               </span>
-              <h3 className="mt-1 font-[var(--font-sora)] text-lg sm:text-xl font-bold text-slate-900">
-                Get RestoSync on Your Device
+              <h3 className="mt-1 font-[var(--font-sora)] text-lg sm:text-xl font-bold text-[#153052]">
+                Get Om Construction Portal App
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md">
-                Install our application directly to your home screen for instant access to POS, orders, and kitchen operations — no app store required.
+                Install our application directly to your home screen for quick access to site operations, project tracking, and engineering updates — no app store required.
               </p>
-              {/* supported platfoRestoSync strip */}
+              {/* supported platforms strip */}
               <div className="mt-2.5 flex items-center justify-center gap-2 sm:justify-start">
-                {PLATFORestoSync.map(({ id, iconSrc, label }) => (
+                {PLATFORMS.map(({ id, iconSrc, label }) => (
                   <span
                     key={id}
-                    className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-slate-50 border border-slate-100"
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-slate-50 border border-slate-200/80"
                   >
                     <img src={iconSrc} alt={label} className="h-3.5 w-3.5 object-contain" />
                   </span>
@@ -125,9 +125,9 @@ export default function DownloadApp({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setShowGuideModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
             >
-              <HelpCircle className="h-4 w-4 text-[#127986]" />
+              <HelpCircle className="h-4 w-4 text-[#FD6102]" />
               <span>How to Install</span>
             </motion.button>
 
@@ -135,10 +135,10 @@ export default function DownloadApp({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={onInstallClick}
-              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#127986] to-[#32bcc5] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#127986]/25 transition-shadow hover:shadow-xl hover:shadow-[#127986]/35"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#153052] to-[#FD6102] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#153052]/20 transition-all hover:shadow-xl hover:shadow-[#FD6102]/25 cursor-pointer"
             >
               <Download className="h-4 w-4" />
-              <span>Install </span>
+              <span>Install App</span>
             </motion.button>
           </div>
         </motion.div>
@@ -163,16 +163,16 @@ export default function DownloadApp({
               role="dialog"
               aria-modal="true"
               aria-labelledby="install-guide-title"
-              className="relative w-full max-w-md overflow-hidden rounded-lg bg-white shadow-2xl border border-slate-100"
+              className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl border border-slate-100"
             >
               {/* header */}
               <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
                 <div className="flex items-center gap-2.5">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#127986]/10 text-[#127986]">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#FD6102]/10 text-[#FD6102]">
                     <HelpCircle className="h-4.5 w-4.5" />
                   </span>
-                  <h3 id="install-guide-title" className="text-base font-bold text-slate-900">
-                    How to install 
+                  <h3 id="install-guide-title" className="text-base font-bold text-[#153052]">
+                    How to Install Site App
                   </h3>
                 </div>
                 <button
@@ -186,15 +186,15 @@ export default function DownloadApp({
 
               {/* platform tabs */}
               <div className="flex gap-1 px-5 pt-4">
-                {PLATFORestoSync.map(({ id, label, iconSrc }) => {
+                {PLATFORMS.map(({ id, label, iconSrc }) => {
                   const isActive = id === activeTab;
                   return (
                     <button
                       key={id}
                       onClick={() => setActiveTab(id)}
-                      className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-lg px-2 py-2.5 text-[11px] font-semibold transition ${
+                      className={`relative flex flex-1 flex-col items-center gap-1.5 rounded-xl px-2 py-2.5 text-[11px] font-semibold transition cursor-pointer ${
                         isActive
-                          ? "bg-[#127986]/10 text-[#127986]"
+                          ? "bg-[#153052]/10 text-[#153052]"
                           : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
                       }`}
                     >
@@ -203,7 +203,7 @@ export default function DownloadApp({
                       {isActive && (
                         <motion.span
                           layoutId="active-platform-underline"
-                          className="absolute -bottom-[1px] left-2 right-2 h-0.5 rounded-full bg-[#127986]"
+                          className="absolute -bottom-[1px] left-2 right-2 h-0.5 rounded-full bg-[#FD6102]"
                         />
                       )}
                     </button>
@@ -224,7 +224,7 @@ export default function DownloadApp({
                   >
                     {active.steps.map((step, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[10px] font-bold text-slate-600">
+                        <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#153052]/10 text-[10px] font-bold text-[#153052]">
                           {i + 1}
                         </span>
                         <p className="text-sm leading-relaxed text-slate-600">{step}</p>
@@ -237,12 +237,12 @@ export default function DownloadApp({
               {/* footer */}
               <div className="flex items-center justify-between gap-3 border-t border-slate-100 bg-slate-50 px-5 py-3.5">
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-500">
-                  <Check className="h-3.5 w-3.5 text-[#127986]" />
+                  <Check className="h-3.5 w-3.5 text-[#FD6102]" />
                   Fast & works offline
                 </span>
                 <button
                   onClick={() => setShowGuideModal(false)}
-                  className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 transition"
+                  className="rounded-xl bg-[#153052] px-4 py-2 text-xs font-semibold text-white hover:bg-[#153052]/90 transition cursor-pointer"
                 >
                   Got it
                 </button>

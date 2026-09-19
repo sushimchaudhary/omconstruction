@@ -98,7 +98,7 @@ export default function ScrollToTop() {
               onClick={scrollToTop}
               whileHover={isLaunching ? {} : { scale: 1.1 }}
               whileTap={isLaunching ? {} : { scale: 0.92 }}
-              className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#127986] via-[#1d97a4] to-[#32bcc5] text-white shadow-2xl shadow-[#127986]/40 border border-white/30 backdrop-blur-md cursor-pointer overflow-hidden transition-shadow hover:shadow-[#127986]/60"
+              className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#153052] via-[#1a3d69] to-[#FD6102] text-white shadow-2xl shadow-[#153052]/40 border border-white/30 backdrop-blur-md cursor-pointer overflow-hidden transition-shadow hover:shadow-[#FD6102]/50"
               aria-label="Scroll to top"
             >
               {/* Dynamic Scroll Progress Circle */}
@@ -118,7 +118,7 @@ export default function ScrollToTop() {
                   cx="28"
                   cy="28"
                   r={radius}
-                  className="stroke-amber-300 transition-all duration-150 ease-out"
+                  className="stroke-[#FD6102] transition-all duration-150 ease-out"
                   strokeWidth="3.5"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
@@ -137,7 +137,7 @@ export default function ScrollToTop() {
                     ? { scale: [1, 1.8, 1.2], opacity: [0.8, 1, 0] }
                     : {}
                 }
-                className="absolute -bottom-1 h-3.5 w-3.5 rounded-full bg-gradient-to-t from-orange-500 to-amber-300 blur-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute -bottom-1 h-3.5 w-3.5 rounded-full bg-gradient-to-t from-[#FD6102] to-amber-400 blur-xs opacity-0 group-hover:opacity-100 transition-opacity"
               />
             </motion.button>
           </motion.div>

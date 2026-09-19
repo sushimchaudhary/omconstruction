@@ -10,11 +10,9 @@ import {
   User,
   ShieldCheck,
   HelpCircle,
-  HardHat,
   Download,
   Smartphone,
   ArrowLeft,
-  Hammer,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AuthServices } from "@/services/authServices";
@@ -89,7 +87,7 @@ const AdminLoginPage = () => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     const token = getCookie("adminToken");
     const role = getCookie("role");
 
@@ -121,7 +119,6 @@ useEffect(() => {
       const user = data.user;
       const userDisplayName = user.username || username;
 
-      // Type error नआउने गरी safely check गरिएको logic:
       const rawRole = String(user.role || "").trim().toLowerCase();
       const isSuperUser =
         Boolean((user as any).super_user) ||
@@ -152,7 +149,6 @@ useEffect(() => {
 
       toast.success(`Welcome back, ${userDisplayName}!`);
 
-      // Role अनुसार Redirect Logic
       if (userRole === "super_admin") {
         router.push("/cms");
       } else {
@@ -171,142 +167,57 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-slate-50 selection:bg-[#06B6D4] selection:text-white items-stretch relative">
-      {/* ── LEFT DECORATIVE SECTION WITH CONSTRUCTION BACKGROUND IMAGE ── */}
-      <div
-        className="hidden lg:flex w-1/2 relative overflow-hidden flex-col justify-between p-12 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?q=80&w=2070&auto=format&fit=crop')`,
-        }}
-      >
-        {/* Soft Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/40 to-slate-900/40 backdrop-blur-[1px] pointer-events-none" />
+    <div className="min-h-screen bg-slate-50 font-sans flex items-center justify-center p-4 relative overflow-hidden selection:bg-[#153052] selection:text-white">
+      {/* Background Decorative Ambient Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[140px] opacity-15 pointer-events-none bg-[#153052]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-        <div className="relative z-10 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 px-5">
+      {/* Main Card Container */}
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-slate-200/60 overflow-hidden border border-slate-200/80 relative z-10 transition-all">
+        {/* Top Gradient Accent Line */}
+        <div className="h-1.5 w-full bg-linear-to-r from-[#153052] to-[#FD6102]" />
+
+        {/* Card Header */}
+        <div className="px-8 pt-4 pb-2 text-center relative">
+          <div className="absolute top-4 left-6">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-slate-500 hover:text-[#153052] text-xs font-bold transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>Home</span>
+            </Link>
+          </div>
+
+          <div className="inline-flex items-center justify-center pt-2">
             <Image
               src="/logo.png"
               alt="Construction Portal Logo"
-              width={400}
-              height={200}
+              width={200}
+              height={100}
               quality={100}
-              className="h-30 md:h-34 w-auto object-contain scale-170 md:scale-[2.8]"
+              className="h-14 md:h-18 w-auto object-contain scale-150"
               priority
             />
           </div>
 
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-white text-xs font-semibold backdrop-blur-md transition-all shadow-md hover:shadow-cyan-500/10 shrink-0"
-          >
-            <ArrowLeft size={16} className="text-[#06B6D4]" />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-
-        <div className="relative z-10 my-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-md mb-6 shadow-lg">
-            <HardHat size={16} className="text-[#06B6D4]" />
-            <span className="text-xs font-semibold text-slate-200 uppercase tracking-widest">
-              Construction Portal
-            </span>
-          </div>
-
-          <h1 className="text-4xl font-extrabold text-white leading-[1.15] tracking-tight mb-4 drop-shadow-lg">
-            Build with confidence. <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#06B6D4] via-cyan-300 to-white">
-              Manage Site Operations.
-            </span>
-          </h1>
-
-          <p className="text-slate-200 text-base max-w-md leading-relaxed drop-shadow-sm font-normal">
-            Take complete control of site operations, project tasks, team progress, and material attendance in one central hub.
+          
+          <p className="text-xs font-medium text-slate-500 mt-5">
+            Enter your credentials to access the Construction Management panel
           </p>
         </div>
 
-        {/* Footer Info */}
-        <div className="relative z-10 flex items-center justify-between text-xs font-medium text-slate-300 border-t border-white/10 pt-6">
-          <div className="flex items-center gap-6">
-            <Link
-              href="/privacy-policy"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms-conditions"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              Terms & Conditions
-            </Link>
-          </div>
-          <span className="text-slate-400">
-            © {new Date().getFullYear()}{" "}
-            <Link
-              href="https://sushimchaudhary.com.np/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline hover:text-cyan-400 transition-colors"
-            >
-              sushim dev
-            </Link>
-          </span>
-        </div>
-      </div>
-
-      {/* Right Form Section */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 bg-slate-50 min-h-screen relative">
-        {/* Back to Home Button for Mobile Screens */}
-        <div className="absolute top-6 left-6 lg:hidden">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-slate-700 text-xs font-bold"
-          >
-            <ArrowLeft size={14} className="text-[#06B6D4]" />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-
-        <div className="w-full max-w-105 my-auto">
-          <div className="lg:hidden flex justify-center mb-2">
-            <div className="flex items-center px-5">
-              <Image
-                src="/logo.png"
-                alt="Construction Portal Logo"
-                width={400}
-                height={200}
-                quality={100}
-                className="h-30 md:h-32 w-auto object-contain scale-[2.4]"
-                priority
-              />
-            </div>
-          </div>
-
-          <div className="mb-4 text-center lg:text-left">
-            <h2 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">
-              Sign In
-            </h2>
-            <p className="text-slate-500 text-sm font-medium">
-              Enter your credentials to access the Construction Management panel
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-2">
-            <div className="flex items-center gap-2 mb-2 py-1.5 px-3 rounded-lg bg-cyan-50 border border-cyan-100 w-fit">
-              <ShieldCheck size={18} className="text-[#06B6D4]" />
-              <span className="text-xs font-bold text-cyan-900 tracking-wider uppercase">
-                Admin & Site Control Access
-              </span>
-            </div>
-
-            {/* Username Input */}
+        {/* Card Body */}
+        <div className="px-8 pb-5 pt-2">
+          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Username Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold uppercase text-slate-600 tracking-wider block">
                 Username <span className="text-cyan-500">*</span>
               </label>
               <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#06B6D4] transition-colors pointer-events-none">
-                  <User size={18} />
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#153052] transition-colors pointer-events-none">
+                  <User size={16} />
                 </div>
                 <input
                   type="text"
@@ -314,7 +225,7 @@ useEffect(() => {
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
                   required
-                  className="w-full pl-11 pr-4 py-2 bg-white border border-slate-200 rounded focus:border-[#06B6D4] focus:ring-4 focus:ring-[#06B6D4]/15 outline-none transition-all placeholder:text-slate-300 text-slate-800 text-sm font-medium shadow-sm"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:border-[#153052] focus:ring-4 focus:ring-[#153052]/15 outline-none transition-all placeholder:text-slate-300 text-slate-800 text-xs font-medium shadow-xs"
                 />
               </div>
             </div>
@@ -326,15 +237,15 @@ useEffect(() => {
                   Password <span className="text-cyan-500">*</span>
                 </label>
                 <Link href="/forgot-password">
-                  <span className="text-xs text-[#06B6D4] font-bold hover:underline transition-all">
+                  <span className="text-xs text-[#153052] font-bold hover:underline transition-all">
                     Forgot password?
                   </span>
                 </Link>
               </div>
 
               <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#06B6D4] transition-colors pointer-events-none">
-                  <Lock size={18} />
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#153052] transition-colors pointer-events-none">
+                  <Lock size={16} />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -342,15 +253,15 @@ useEffect(() => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   required
-                  className="w-full pl-11 pr-12 py-2 bg-white border border-slate-200 rounded focus:border-[#06B6D4] focus:ring-4 focus:ring-[#06B6D4]/15 outline-none transition-all placeholder:text-slate-300 text-slate-800 text-sm font-medium shadow-sm"
+                  className="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-200 rounded-lg focus:border-[#153052] focus:ring-4 focus:ring-[#153052]/15 outline-none transition-all placeholder:text-slate-300 text-slate-800 text-xs font-medium shadow-xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors p-1"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors p-1"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
@@ -359,7 +270,7 @@ useEffect(() => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#06B6D4] hover:bg-cyan-600 text-white py-2.5 rounded font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg shadow-[#06B6D4]/25 mt-5 cursor-pointer"
+              className="w-full bg-[#153052] text-white py-2.5 px-4 rounded-lg font-bold text-sm tracking-wide transition-all duration-200 active:scale-[0.99] disabled:opacity-70 flex items-center justify-center gap-2 shadow-lg shadow-[#153052]/20 cursor-pointer mt-4"
             >
               {loading ? (
                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -369,26 +280,26 @@ useEffect(() => {
             </button>
           </form>
 
-          {/* ── DOWNLOAD OUR APP SECTION ── */}
+          {/* Download App Section */}
           {isInstallable && (
-            <div className="mt-4 p-2 bg-white border border-slate-200 rounded-lg flex items-center justify-between shadow-xs">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-cyan-50 text-[#06B6D4]">
-                  <Smartphone size={20} />
+            <div className="mt-4 p-2.5 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-cyan-50 text-[#153052]">
+                  <Smartphone size={18} />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-slate-800">
                     Download Site App
                   </h4>
-                  <p className="text-[11px] text-slate-500">
-                    Install application on your device for quick access
+                  <p className="text-[10px] text-slate-500">
+                    Install application on your device
                   </p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={handleInstallClick}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#06B6D4] hover:bg-cyan-600 text-white font-bold text-xs rounded transition-all active:scale-95 cursor-pointer shadow-sm shrink-0"
+                className="flex items-center gap-1 px-3 py-1.5 bg-[#153052] hover:bg-cyan-600 text-white font-bold text-xs rounded-lg transition-all active:scale-95 cursor-pointer shadow-xs shrink-0"
               >
                 <Download size={14} />
                 <span>Install</span>
@@ -397,12 +308,12 @@ useEffect(() => {
           )}
 
           {/* Help Footer */}
-          <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center justify-center gap-2 text-xs text-slate-500">
+          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-1.5 text-xs text-slate-500">
             <HelpCircle size={14} className="text-slate-400" />
             <span>Having trouble logging in?</span>
             <Link
               href="/support-teams"
-              className="text-[#06B6D4] font-bold hover:underline cursor-pointer"
+              className="text-[#153052] font-bold hover:underline cursor-pointer"
             >
               Contact Support
             </Link>

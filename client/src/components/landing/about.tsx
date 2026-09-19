@@ -53,7 +53,7 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="about-root w-full bg-white py-6 sm:py-12 md:py-20 px-4 sm:px-6 lg:px-12">
+    <section id="about" className="about-root w-full py-6 sm:py-12 md:py-20 px-4 sm:px-6 lg:px-12">
       <style>{`
         .about-root {
           --navy: #173457;
@@ -162,12 +162,11 @@ function ReadyView({
           Company Overview
         </span>
         <h1
-          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
+          className="text-2xl  md:text-5xl font-extrabold tracking-tight leading-tight"
           style={{ fontFamily: "var(--font-display)", color: "var(--navy)" }}
         >
           {record.title}
         </h1>
-        <div className="w-12 sm:w-16 h-1 bg-[var(--orange)] mx-auto mt-2 sm:mt-4 rounded-full" />
       </div>
 
       {/* 2. Responsive Hero Banner Image + Overlapped Floating Badge */}

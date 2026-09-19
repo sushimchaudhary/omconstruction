@@ -16,11 +16,10 @@ import {
   Scale,
   HelpCircle,
 } from "lucide-react";
-import { useTheme } from "@/lib/context/ThemeContext";
 import Link from "next/link";
 
 export default function SupportTeamPage() {
-  const { primaryColor } = useTheme();
+  const  primaryColor = "#153052";
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     subject: "",
@@ -63,25 +62,7 @@ Sent via Support Center Portal`;
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-700 selection:bg-[#06B6D4] selection:text-white">
-      {/* Top Header Navigation */}
-      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors"
-          >
-            <ArrowLeft size={16} />
-            <span>Back to Login</span>
-          </Link>
-
-          <div className="flex items-center gap-2">
-            <HelpCircle size={20} style={{ color: themeColor }} />
-            <span className="text-xs font-bold text-white uppercase tracking-wider">
-              RMS Support Teams
-            </span>
-          </div>
-        </div>
-      </header>
+     
 
        <main className="max-w-6xl mx-auto py-8 px-6 space-y-8">
               <div

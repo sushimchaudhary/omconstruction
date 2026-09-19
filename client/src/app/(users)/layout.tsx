@@ -5,6 +5,7 @@ import Navbar from "@/components/landing/Nav";
 import Footer from "@/components/landing/Footer";
 import BackgroundGlow from "@/components/landing/Backgroundglow";
 import ScrollProgress from "@/components/landing/Scrollprogress";
+import ScrollToTop from "@/components/ScrollTop";
 
 interface LayoutProps {
   children: ReactNode;
@@ -29,6 +30,7 @@ export default function Layout({ children }: LayoutProps) {
       <div className="w-full overflow-x-hidden">
         <Footer />
       </div>
+      <ScrollToTop />
     </div>
   );
 }

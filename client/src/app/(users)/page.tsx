@@ -41,7 +41,7 @@ const mono = JetBrains_Mono({
 });
 
 export default function LandingPage() {
-  const [stats, setStats] = useState({ restaurants: 0, branches: 0 });
+  const [stats, setStats] = useState({ projects: 0, clients: 0 });
   const [plans, setPlans] = useState<PublicPlan[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -98,8 +98,8 @@ export default function LandingPage() {
 
         if (resData) {
           setStats({
-            restaurants: resData.restaurants || 0,
-            branches: resData.branches || 0,
+            projects: resData.projects || 0,
+            clients: resData.clients || 0,
           });
           setPlans(resData.plans || []);
         }
@@ -115,14 +115,14 @@ export default function LandingPage() {
 
   return (
     <div
-      className={`${fraunces.variable} ${inter.variable} ${mono.variable} font-[var(--font-inter)] bg-[color:var(--rc-bg)] text-[color:var(--rc-text)] antialiased min-h-screen w-full selection:bg-[#f96400] selection:text-white`}
+      className={`${fraunces.variable} ${inter.variable} ${mono.variable} font-[var(--font-inter)] bg-[color:var(--rc-bg)] text-[color:var(--rc-text)] antialiased min-h-screen w-full selection:bg-[#FD6102] selection:text-white`}
       style={
         {
           "--rc-bg": "#FFFFFF",
-          "--rc-surface": "#FFFFFF",
+          "--rc-surface": "#F8FAFC",
           "--rc-border": "#E2E8F0",
-          "--rc-[#1c3551]": "#1c3551",
-          "--rc-orange": "#f96400",
+          "--rc-navy": "#153052",
+          "--rc-orange": "#FD6102",
           "--rc-text": "#0F172A",
           "--rc-text-muted": "#475569",
         } as React.CSSProperties
@@ -158,12 +158,12 @@ export default function LandingPage() {
           {/* 8. Call to Action / App Download */}
           <DownloadApp isInstallable={isInstallable} onInstallClick={handleInstallClick} />
 
-           <ContactSection/>
-           
+          {/* 9. Contact Section */}
+          <ContactSection />
         </main>
       </div>
 
-      <ScrollToTop />
+      
     </div>
   );
 }

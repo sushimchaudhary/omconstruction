@@ -13,10 +13,9 @@ import {
   ArrowRight,
   MessageSquare,
 } from "lucide-react";
-import { useTheme } from "@/lib/context/ThemeContext";
 
 export default function SupportTeamPage() {
-  const { primaryColor } = useTheme();
+  const  primaryColor = "#153052";
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     subject: "",
